@@ -1,0 +1,2 @@
+# Local producer tools only; version not pinned because the original environment was not supplied.
+confluent-kafka
