@@ -1,0 +1,6 @@
+product_id,product_name,category,catalog_price,currency,is_active,updated_at
+P001,Classic T-Shirt,Clothing,25.00,GBP,true,2026-10-01T00:00:00Z
+P002,Everyday Backpack,Accessories,49.50,GBP,true,2026-10-01T00:00:00Z
+P003,Ceramic Mug,Home,12.75,GBP,true,2026-10-01T00:00:00Z
+P004,Wireless Headphones,Electronics,89.00,GBP,true,2026-10-01T00:00:00Z
+P005,Cotton Socks,Clothing,7.50,GBP,true,2026-10-01T00:00:00Z

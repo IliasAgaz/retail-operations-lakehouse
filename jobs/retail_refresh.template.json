@@ -1,0 +1,244 @@
+{
+  "name": "retail_customer_refresh_job",
+  "notification_settings": {
+    "no_alert_for_skipped_runs": true
+  },
+  "timeout_seconds": 0,
+  "trigger": {
+    "pause_status": "PAUSED",
+    "periodic": {
+      "interval": 1,
+      "unit": "DAYS"
+    }
+  },
+  "max_concurrent_runs": 1,
+  "tasks": [
+    {
+      "task_key": "ingest_customers",
+      "run_if": "ALL_SUCCESS",
+      "pipeline_task": {
+        "pipeline_id": "REPLACE_WITH_CUSTOMER_PIPELINE_ID",
+        "full_refresh": false
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "validate_and_save_customers",
+      "depends_on": [
+        {
+          "task_key": "ingest_customers"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/07_retail_customer_ingestion",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_customer_history",
+      "depends_on": [
+        {
+          "task_key": "validate_and_save_customers"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/13_retail_customer_history",
+        "base_parameters": {
+          "catalog": "retail_operations_dev"
+        },
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_orders",
+      "depends_on": [
+        {
+          "task_key": "validate_and_save_customers"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/02_retail_order_events",
+        "base_parameters": {
+          "run_fixture_tests": "false"
+        },
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_payments",
+      "depends_on": [
+        {
+          "task_key": "refresh_orders"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/03_retail_payment_events",
+        "base_parameters": {
+          "run_fixture_tests": "false"
+        },
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "reconcile_payments",
+      "depends_on": [
+        {
+          "task_key": "refresh_payments"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/04_retail_payment_reconciliation",
+        "base_parameters": {
+          "run_fixture_tests": "false"
+        },
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_products",
+      "depends_on": [
+        {
+          "task_key": "refresh_orders"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/05_retail_product_catalog",
+        "base_parameters": {
+          "run_fixture_tests": "false"
+        },
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "enrich_order_items",
+      "depends_on": [
+        {
+          "task_key": "refresh_products"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/06_retail_product_analytics",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_customer_analytics",
+      "depends_on": [
+        {
+          "task_key": "enrich_order_items"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/08_retail_customer_analytics",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_inventory",
+      "depends_on": [
+        {
+          "task_key": "refresh_products"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/10_retail_inventory",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_returns",
+      "depends_on": [
+        {
+          "task_key": "refresh_orders"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/11_retail_returns",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "refresh_refunds",
+      "depends_on": [
+        {
+          "task_key": "refresh_returns"
+        },
+        {
+          "task_key": "refresh_payments"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/12_retail_refunds",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    },
+    {
+      "task_key": "verify_published_data",
+      "depends_on": [
+        {
+          "task_key": "refresh_customer_analytics"
+        },
+        {
+          "task_key": "refresh_returns"
+        },
+        {
+          "task_key": "refresh_refunds"
+        },
+        {
+          "task_key": "refresh_customer_history"
+        },
+        {
+          "task_key": "reconcile_payments"
+        },
+        {
+          "task_key": "refresh_inventory"
+        }
+      ],
+      "run_if": "ALL_SUCCESS",
+      "notebook_task": {
+        "notebook_path": "/Workspace/Shared/retail-project/notebooks/09_retail_pipeline_checks",
+        "source": "WORKSPACE"
+      },
+      "timeout_seconds": 0,
+      "disabled": false
+    }
+  ],
+  "queue": {
+    "enabled": true
+  },
+  "performance_target": "PERFORMANCE_OPTIMIZED"
+}

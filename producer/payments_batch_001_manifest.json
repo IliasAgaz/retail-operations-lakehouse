@@ -1,0 +1,137 @@
+{
+  "batch_id": "B001",
+  "messages_to_send": 36,
+  "expected_valid_deliveries": 34,
+  "expected_invalid_deliveries": 2,
+  "expected_distinct_valid_events": 31,
+  "expected_duplicate_extra_deliveries": 3,
+  "expected_conflicting_event_ids": 0,
+  "expected_unmatched_payment_id": "PAY-B001-EARLY-ORDER",
+  "expected_order_payments": [
+    {
+      "order_id": "O-8e90a57608e7-0001",
+      "payment_count": 1,
+      "expected_paid": "115.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0002",
+      "payment_count": 1,
+      "expected_paid": "120.25"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0003",
+      "payment_count": 1,
+      "expected_paid": "49.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0004",
+      "payment_count": 1,
+      "expected_paid": "30.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0005",
+      "payment_count": 1,
+      "expected_paid": "33.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0006",
+      "payment_count": 1,
+      "expected_paid": "174.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0007",
+      "payment_count": 1,
+      "expected_paid": "89.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0008",
+      "payment_count": 1,
+      "expected_paid": "58.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0009",
+      "payment_count": 1,
+      "expected_paid": "89.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0010",
+      "payment_count": 1,
+      "expected_paid": "27.75"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0011",
+      "payment_count": 1,
+      "expected_paid": "211.75"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0012",
+      "payment_count": 1,
+      "expected_paid": "186.75"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0013",
+      "payment_count": 1,
+      "expected_paid": "90.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0014",
+      "payment_count": 1,
+      "expected_paid": "87.75"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0015",
+      "payment_count": 1,
+      "expected_paid": "51.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0016",
+      "payment_count": 1,
+      "expected_paid": "148.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0017",
+      "payment_count": 1,
+      "expected_paid": "409.25"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0018",
+      "payment_count": 1,
+      "expected_paid": "22.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0019",
+      "payment_count": 1,
+      "expected_paid": "200.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0020",
+      "payment_count": 1,
+      "expected_paid": "154.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0021",
+      "payment_count": 2,
+      "expected_paid": "416.50"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0022",
+      "payment_count": 2,
+      "expected_paid": "302.25"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0023",
+      "payment_count": 2,
+      "expected_paid": "89.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0024",
+      "payment_count": 2,
+      "expected_paid": "224.00"
+    },
+    {
+      "order_id": "O-8e90a57608e7-0025",
+      "payment_count": 2,
+      "expected_paid": "7.50"
+    }
+  ]
+}

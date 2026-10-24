@@ -1,0 +1,1 @@
+{"return_payload": {"return_id": "RET-0001", "order_id": "O-21a85a68eca6", "line_id": 1, "quantity": 1, "reason": "damaged", "status": "requested", "created_at": "2026-10-18T10:00:00Z", "updated_at": "2026-10-18T10:00:00Z"}, "source_system": "simulated_returns_api", "extraction_id": "23941371a9a3453fb4a7da5559aca3b6", "extracted_at": "2026-10-19T11:43:08.967669+00:00"}
