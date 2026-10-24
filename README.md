@@ -5,6 +5,37 @@ PostgreSQL customer data, supplier CSV files, and simulated returns/refunds API
 exports in Databricks. Bronze retains source data, Silver validates and builds
 current state, and Gold supports reconciliation and analytics.
 
+## Dashboard and execution screenshots
+
+These screenshots show synthetic demo data. Inventory snapshots older than
+48 hours are flagged as stale; this is separate from stock availability.
+
+### Payments, orders, and inventory overview
+
+![Payment KPIs, order statuses, stock availability and freshness](images/dashboard-overview.png)
+
+### Inventory review and customer segments
+
+![Stale inventory positions and ordered value by current customer segment](images/dashboard-inventory-customers.png)
+
+### Customer and product rankings
+
+![Top customers and products by ordered merchandise value](images/dashboard-top-customers-products.png)
+
+[Live dashboard — Databricks access required](https://dbc-8895dcfc-dcb6.cloud.databricks.com/dashboardsv3/01f1cf1d104c1fc593bec484d3ed3529/published?o=7474649744111744)
+
+### Job dependencies
+
+![Retail refresh job with 13 tasks](images/job-workflow.png)
+
+### Run evidence
+
+The user-provided October 24, 2026 run timeline shows all 13 tasks in green,
+including the final published-data checks. This is screenshot evidence, not
+an independently executed cloud validation or proof of the exact deployed source revision.
+
+![Successful task timeline including final validation](images/job-run-timeline.png)
+
 ## Architecture
 
 ```mermaid
